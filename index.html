@@ -10,508 +10,523 @@
     
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 10px;
-    }
-
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .header {
-        text-align: center;
-        color: white;
-        margin-bottom: 20px;
-    }
-
-    .header h1 {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        margin-bottom: 10px;
-    }
-
-    .header p {
-        font-size: clamp(1rem, 2.5vw, 1.2rem);
-        opacity: 0.9;
-    }
-
-    .card {
-        background: white;
-        border-radius: 15px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-
-    .card-header {
-        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #2D3748;
-        border-bottom: 2px solid #E2E8F0;
-        padding-bottom: 10px;
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-
-    .stat-card {
-        background: white;
-        border-radius: 15px;
-        padding: 20px 15px;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .stat-icon {
-        font-size: clamp(1.5rem, 3vw, 2rem);
-        margin-bottom: 8px;
-        display: block;
-    }
-
-    .stat-value {
-        font-size: clamp(1.2rem, 3vw, 1.8rem);
-        font-weight: bold;
-        color: #2D3748;
-        margin-bottom: 5px;
-        word-break: break-all;
-    }
-
-    .stat-label {
-        color: #718096;
-        font-size: clamp(11px, 2.5vw, 14px);
-        line-height: 1.2;
-    }
-
-    .main-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-
-    @media (min-width: 1024px) {
-        .main-grid {
-            grid-template-columns: 1fr 1fr;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
 
-    @media (max-width: 480px) {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+        }
+
         .card {
-            padding: 12px;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        
+
+        .card-header {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2D3748;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 10px;
+        }
+
         .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
-        
+
         .stat-card {
-            padding: 15px 10px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-    }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-        color: #2D3748;
-        font-size: clamp(14px, 2.5vw, 16px);
-    }
-
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid #E2E8F0;
-        border-radius: 8px;
-        font-size: clamp(14px, 2.5vw, 16px);
-        transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-        outline: none;
-        border-color: #667eea;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: clamp(14px, 2.5vw, 16px);
-        font-weight: bold;
-        transition: all 0.3s ease;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        min-height: 44px;
-    }
-
-    .btn-orange {
-        background: #F97316;
-        color: white;
-    }
-
-    .btn-green {
-        background: #10B981;
-        color: white;
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .btn:disabled {
-        background: #9CA3AF;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    @media (max-width: 480px) {
-        .button-group {
-            flex-direction: column;
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
-        
-        .btn {
-            margin-right: 0;
+
+        .stat-icon {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: bold;
+            color: #2D3748;
+            margin-bottom: 5px;
+            word-break: break-all;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: clamp(11px, 2.5vw, 14px);
+            line-height: 1.2;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (min-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 12px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-card {
+                padding: 15px 10px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #2D3748;
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
+
+        .form-group input,
+        .form-group textarea {
             width: 100%;
+            padding: 10px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            transition: border-color 0.3s ease;
         }
-    }
 
-    .calculation-preview {
-        background: #FFF7ED;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 15px;
-        border: 2px solid #FDBA74;
-    }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
 
-    .calculation-preview h4 {
-        font-size: clamp(14px, 2.5vw, 16px);
-    }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: clamp(14px, 2.5vw, 16px);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            min-height: 44px;
+        }
 
-    .calculation-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        padding: 4px 0;
-        font-size: clamp(13px, 2.5vw, 14px);
-        flex-wrap: wrap;
-        gap: 5px;
-    }
+        .btn-orange {
+            background: #F97316;
+            color: white;
+        }
 
-    .calculation-row.total {
-        font-weight: bold;
-        border-top: 2px solid #D97706;
-        padding-top: 12px;
-        margin-top: 12px;
-        font-size: clamp(14px, 2.5vw, 16px);
-        color: #D97706;
-    }
+        .btn-green {
+            background: #10B981;
+            color: white;
+        }
 
-    .calculation-row.expenses-total {
-        font-weight: bold;
-        color: #DC2626;
-        border-top: 1px solid #FCA5A5;
-        padding-top: 8px;
-        margin-top: 8px;
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
 
-    .data-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-        font-size: clamp(12px, 2vw, 14px);
-    }
+        .btn:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
-    .data-table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+        .button-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
-    .data-table th,
-    .data-table td {
-        padding: 8px 6px;
-        text-align: left;
-        border-bottom: 1px solid #E2E8F0;
-        min-width: 60px;
-    }
+        @media (max-width: 480px) {
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                margin-right: 0;
+                width: 100%;
+            }
+        }
 
-    .data-table th {
-        background: #F7FAFC;
-        font-weight: bold;
-        color: #2D3748;
-        font-size: clamp(11px, 2vw, 13px);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
+        .calculation-preview {
+            background: #FFF7ED;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 2px solid #FDBA74;
+        }
 
-    .data-table tr:hover {
-        background: #F7FAFC;
-    }
+        .calculation-preview h4 {
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
 
-    @media (max-width: 768px) {
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 4px 0;
+            font-size: clamp(13px, 2.5vw, 14px);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .calculation-row.total {
+            font-weight: bold;
+            border-top: 2px solid #D97706;
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: clamp(14px, 2.5vw, 16px);
+            color: #D97706;
+        }
+
+        .calculation-row.expenses-total {
+            font-weight: bold;
+            color: #DC2626;
+            border-top: 1px solid #FCA5A5;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: clamp(12px, 2vw, 14px);
+        }
+
+        .data-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .data-table th,
         .data-table td {
-            padding: 6px 4px;
-            font-size: 11px;
-        }
-        
-        .data-table th:nth-child(6),
-        .data-table td:nth-child(6) {
-            display: none;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .data-table th:nth-child(3),
-        .data-table td:nth-child(3),
-        .data-table th:nth-child(5),
-        .data-table td:nth-child(5) {
-            display: none;
-        }
-    }
-
-    .text-right {
-        text-align: right;
-    }
-
-    .profit-positive {
-        color: #059669;
-        font-weight: bold;
-    }
-
-    .profit-negative {
-        color: #DC2626;
-        font-weight: bold;
-    }
-
-    .excel-status {
-        background: #EBF8FF;
-        border: 2px solid #3B82F6;
-        border-radius: 10px;
-        padding: 12px;
-        margin-top: 15px;
-        text-align: center;
-        font-size: clamp(12px, 2.5vw, 14px);
-    }
-
-    .excel-connected {
-        background: #ECFDF5;
-        border-color: #10B981;
-    }
-
-    .notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        left: 20px;
-        padding: 12px 20px;
-        border-radius: 10px;
-        color: white;
-        font-weight: bold;
-        z-index: 2000;
-        transform: translateY(-100px);
-        transition: transform 0.3s ease;
-        font-size: clamp(14px, 2.5vw, 16px);
-        text-align: center;
-    }
-
-    @media (min-width: 768px) {
-        .notification {
-            left: auto;
-            right: 20px;
-            max-width: 400px;
-            transform: translateX(400px);
+            padding: 8px 6px;
             text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+            min-width: 60px;
         }
-        
-        .notification.show {
-            transform: translateX(0);
+
+        .data-table th {
+            background: #F7FAFC;
+            font-weight: bold;
+            color: #2D3748;
+            font-size: clamp(11px, 2vw, 13px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-    }
 
-    .notification.show {
-        transform: translateY(0);
-    }
-
-    .notification.success {
-        background: #10B981;
-    }
-
-    .notification.error {
-        background: #EF4444;
-    }
-
-    .notification.info {
-        background: #3B82F6;
-    }
-
-    .expense-inputs {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 8px;
-        align-items: end;
-        margin-bottom: 12px;
-    }
-
-    @media (max-width: 480px) {
-        .expense-inputs {
-            grid-template-columns: 1fr;
-            gap: 8px;
+        .data-table tr:hover {
+            background: #F7FAFC;
         }
-    }
 
-    .expense-item {
-        display: grid;
-        grid-template-columns: 2fr 1fr auto;
-        gap: 8px;
-        align-items: center;
-        padding: 8px;
-        background: #F7FAFC;
-        border-radius: 8px;
-        margin-bottom: 8px;
-    }
+        @media (max-width: 768px) {
+            .data-table th,
+            .data-table td {
+                padding: 6px 4px;
+                font-size: 11px;
+            }
+            
+            /* Hide Status column instead of Expenses on tablets */
+            .data-table th:nth-child(6),
+            .data-table td:nth-child(6) {
+                display: none;
+            }
+        }
 
-    @media (max-width: 480px) {
-        .expense-item {
-            grid-template-columns: 1fr;
-            gap: 8px;
+        @media (max-width: 480px) {
+            /* On phones, hide Revenue and Status columns but KEEP Expenses */
+            .data-table th:nth-child(3),
+            .data-table td:nth-child(3),
+            .data-table th:nth-child(6),
+            .data-table td:nth-child(6) {
+                display: none;
+            }
+            
+            /* Make sure Expenses column (5th) stays visible */
+            .data-table th:nth-child(5),
+            .data-table td:nth-child(5) {
+                display: table-cell !important;
+            }
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .profit-positive {
+            color: #059669;
+            font-weight: bold;
+        }
+
+        .profit-negative {
+            color: #DC2626;
+            font-weight: bold;
+        }
+
+        .excel-status {
+            background: #EBF8FF;
+            border: 2px solid #3B82F6;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: clamp(12px, 2.5vw, 14px);
+        }
+
+        .excel-connected {
+            background: #ECFDF5;
+            border-color: #10B981;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 2000;
+            transform: translateY(-100px);
+            transition: transform 0.3s ease;
+            font-size: clamp(14px, 2.5vw, 16px);
             text-align: center;
         }
-    }
 
-    .expense-item input {
-        margin: 0;
-        padding: 6px 8px;
-        font-size: clamp(13px, 2.5vw, 14px);
-    }
+        @media (min-width: 768px) {
+            .notification {
+                left: auto;
+                right: 20px;
+                max-width: 400px;
+                transform: translateX(400px);
+                text-align: left;
+            }
+            
+            .notification.show {
+                transform: translateX(0);
+            }
+        }
 
-    .expense-item button {
-        background: #EF4444;
-        color: white;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: clamp(11px, 2.5vw, 12px);
-        min-height: 32px;
-    }
+        .notification.show {
+            transform: translateY(0);
+        }
 
-    .btn-add-expense {
-        background: #10B981;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: clamp(12px, 2.5vw, 14px);
-        min-height: 36px;
-        white-space: nowrap;
-    }
+        .notification.success {
+            background: #10B981;
+        }
 
-    @media (max-width: 480px) {
+        .notification.error {
+            background: #EF4444;
+        }
+
+        .notification.info {
+            background: #3B82F6;
+        }
+
+        .expense-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            align-items: end;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .expense-inputs {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .expense-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr auto;
+            gap: 8px;
+            align-items: center;
+            padding: 8px;
+            background: #F7FAFC;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .expense-item {
+                grid-template-columns: 1fr 1fr 1fr auto;
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .expense-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        .expense-item input {
+            margin: 0;
+            padding: 6px 8px;
+            font-size: clamp(13px, 2.5vw, 14px);
+        }
+
+        .expense-item button {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: clamp(11px, 2.5vw, 12px);
+            min-height: 32px;
+        }
+
         .btn-add-expense {
-            width: 100%;
-            white-space: normal;
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: clamp(12px, 2.5vw, 14px);
+            min-height: 36px;
+            white-space: nowrap;
         }
-    }
 
-    .pending-record {
-        background: #FEF3C7;
-        border: 2px solid #F59E0B;
-        border-radius: 10px;
-        padding: 12px;
-        margin-top: 15px;
-        font-size: clamp(13px, 2.5vw, 14px);
-    }
+        @media (max-width: 480px) {
+            .btn-add-expense {
+                width: 100%;
+                white-space: normal;
+            }
+        }
 
-    .pending-record h4 {
-        color: #92400E;
-        margin-bottom: 8px;
-        font-size: clamp(14px, 2.5vw, 16px);
-    }
+        .pending-record {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: clamp(13px, 2.5vw, 14px);
+        }
 
-    /* Action buttons in table */
-    .data-table button {
-        background: #F59E0B;
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: clamp(10px, 2vw, 12px);
-        margin-right: 4px;
-        margin-bottom: 2px;
-        min-height: 28px;
-    }
+        .pending-record h4 {
+            color: #92400E;
+            margin-bottom: 8px;
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
 
-    .data-table button:last-child {
-        background: #EF4444;
-        margin-right: 0;
-    }
-
-    @media (max-width: 480px) {
+        /* Action buttons in table */
         .data-table button {
-            padding: 3px 6px;
-            font-size: 10px;
-            margin-right: 2px;
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: clamp(10px, 2vw, 12px);
+            margin-right: 4px;
+            margin-bottom: 2px;
+            min-height: 28px;
         }
-    }
 
-    /* Scrollable table container */
-    @media (max-width: 768px) {
-        .card-content > div:has(.data-table) {
-            max-height: 300px !important;
+        .data-table button:last-child {
+            background: #EF4444;
+            margin-right: 0;
         }
-    }
 
-    /* Status badges responsive */
-    .data-table span {
-        padding: 2px 6px;
-        border-radius: 8px;
-        font-size: clamp(9px, 2vw, 12px);
-        white-space: nowrap;
-    }
-
-    /* Improve touch targets on mobile */
-    @media (max-width: 768px) {
-        .btn, .expense-item button, .btn-add-expense, .data-table button {
-            min-height: 44px;
-            touch-action: manipulation;
+        @media (max-width: 480px) {
+            .data-table button {
+                padding: 3px 6px;
+                font-size: 10px;
+                margin-right: 2px;
+            }
         }
-    }
+
+        /* Scrollable table container */
+        @media (max-width: 768px) {
+            .card-content > div:has(.data-table) {
+                max-height: 300px !important;
+            }
+        }
+
+        /* Status badges responsive */
+        .data-table span {
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: clamp(9px, 2vw, 12px);
+            white-space: nowrap;
+        }
+
+        /* Improve touch targets on mobile */
+        @media (max-width: 768px) {
+            .btn, .expense-item button, .btn-add-expense, .data-table button {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+        }
     </style>
 </head>
 <body>
@@ -751,7 +766,7 @@
                     document.getElementById('saveToExcelBtn').disabled = true;
                     
                     this.saveToMemory();
-                    await this.exportToExcel();
+                    await this.exportToExcel(record.date);
                     
                     // Update stats back to confirmed records only
                     this.updateStats();
@@ -784,14 +799,21 @@
                     // Delete confirmed record
                     const index = this.dailyRecords.findIndex(r => r.id === id);
                     if (index >= 0) {
+                        const deletedRecord = this.dailyRecords[index];
                         this.dailyRecords.splice(index, 1);
                         
                         this.saveToMemory();
-                        await this.exportToExcel();
+                        
+                        // Only export to Excel if there are remaining records, otherwise show message
+                        if (this.dailyRecords.length > 0) {
+                            await this.exportToExcel();
+                            showNotification('Record deleted and Excel file updated!', 'success');
+                        } else {
+                            showNotification('Record deleted! No records remaining to export.', 'success');
+                        }
                         
                         this.updateStats();
                         this.updateTable();
-                        showNotification('Record deleted!', 'success');
                         
                         return true;
                     }
@@ -807,7 +829,7 @@
                 return Date.now().toString() + Math.random().toString(36).substr(2, 5);
             }
 
-            async exportToExcel() {
+            async exportToExcel(recordDate = null) {
                 try {
                     const wb = XLSX.utils.book_new();
                     
@@ -819,7 +841,8 @@
                         const expenseDetail = record.expenses ? 
                             record.expenses.map(exp => {
                                 const originalInput = exp.originalInput || exp.amount;
-                                return `${exp.name}: ${originalInput} (₱${exp.amount})`;
+                                const details = exp.details ? ` - ${exp.details}` : '';
+                                return `${exp.name}: ${originalInput} (₱${exp.amount})${details}`;
                             }).join('; ') : 
                             '';
                         
@@ -842,7 +865,15 @@
                     
                     XLSX.utils.book_append_sheet(wb, ws, 'DailyRecords');
                     
-                    const fileName = `pie-business-${new Date().toISOString().split('T')[0]}.xlsx`;
+                    // Use the record date or the selected form date for filename
+                    let fileDate = recordDate;
+                    if (!fileDate) {
+                        // Try to get date from form
+                        const formDate = document.getElementById('recordDate').value;
+                        fileDate = formDate || new Date().toISOString().split('T')[0];
+                    }
+                    
+                    const fileName = `pie-business-${fileDate}.xlsx`;
                     XLSX.writeFile(wb, fileName);
                     
                     return true;
@@ -964,7 +995,7 @@
         // Expense management
         let expenseCounter = 0;
 
-        function addExpenseInput(name = '', amount = 0) {
+        function addExpenseInput(name = '', amount = 0, details = '') {
             const expensesList = document.getElementById('expensesList');
             const expenseName = name || document.getElementById('newExpenseName').value || `Expense ${expenseCounter + 1}`;
             
@@ -978,7 +1009,8 @@
             
             expenseItem.innerHTML = `
                 <input type="text" value="${expenseName}" placeholder="Expense name">
-                <input type="text" value="${amount}" placeholder="Amount (e.g., 100 or 50/2)" oninput="updateCalculations()">
+                <input type="text" value="${amount}" placeholder="Amount " oninput="updateCalculations()">
+                <input type="text" value="${details}" placeholder="Details ">
                 <button onclick="removeExpenseInput(${expenseCounter})">Remove</button>
             `;
             
@@ -1013,13 +1045,15 @@
             const expenses = [];
             
             expenseItems.forEach(item => {
-                const nameInput = item.querySelector('input[type="text"]');
-                const amountInputs = item.querySelectorAll('input[type="text"]');
-                const amountInput = amountInputs[1]; // Second text input is the amount
+                const textInputs = item.querySelectorAll('input[type="text"]');
+                const nameInput = textInputs[0]; // First text input is the name
+                const amountInput = textInputs[1]; // Second text input is the amount
+                const detailsInput = textInputs[2]; // Third text input is the details
                 
                 if (nameInput && amountInput) {
                     const name = nameInput.value.trim();
                     let amountStr = amountInput.value.trim();
+                    const details = detailsInput ? detailsInput.value.trim() : '';
                     let amount = 0;
                     
                     // Handle expressions like "100/2" or "50+25"
@@ -1037,7 +1071,7 @@
                     }
                     
                     if (name) {
-                        expenses.push({ name, amount, originalInput: amountStr });
+                        expenses.push({ name, amount, originalInput: amountStr, details });
                     }
                 }
             });
