@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ginger Calamansi Pie Business - Excel Database System</title>
+    <title>Ginger Calamansi Pie Business - Simple Database</title>
     
     <!-- SheetJS Library for Excel Operations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -58,34 +58,6 @@
             color: #2D3748;
             border-bottom: 2px solid #E2E8F0;
             padding-bottom: 10px;
-        }
-
-        .database-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .control-btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .btn-export { background: #10B981; color: white; }
-        .btn-import { background: #3B82F6; color: white; }
-        .btn-backup { background: #8B5CF6; color: white; }
-        .btn-analytics { background: #F59E0B; color: white; }
-        .btn-clear { background: #EF4444; color: white; }
-
-        .control-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .stats-grid {
@@ -174,6 +146,8 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
         .btn-orange {
@@ -181,14 +155,27 @@
             color: white;
         }
 
-        .btn-primary {
-            background: #3B82F6;
+        .btn-green {
+            background: #10B981;
             color: white;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .calculation-preview {
@@ -215,11 +202,12 @@
             color: #D97706;
         }
 
-        .search-filter {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr auto;
-            gap: 15px;
-            align-items: end;
+        .calculation-row.expenses-total {
+            font-weight: bold;
+            color: #DC2626;
+            border-top: 1px solid #FCA5A5;
+            padding-top: 10px;
+            margin-top: 10px;
         }
 
         .data-table {
@@ -259,75 +247,18 @@
             font-weight: bold;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: -10px;
-        }
-
-        .close:hover {
-            color: #000;
-        }
-
-        .file-drop-zone {
-            border: 3px dashed #667eea;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #F8FAFC;
-        }
-
-        .file-drop-zone:hover {
-            border-color: #764ba2;
-            background: #EDF2F7;
-        }
-
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .analytics-item {
-            background: #F7FAFC;
-            padding: 20px;
+        .excel-status {
+            background: #EBF8FF;
+            border: 2px solid #3B82F6;
             border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
             text-align: center;
         }
 
-        .analytics-card {
-            background: #F7FAFC;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
+        .excel-connected {
+            background: #ECFDF5;
+            border-color: #10B981;
         }
 
         .notification {
@@ -359,102 +290,92 @@
             background: #3B82F6;
         }
 
-        .excel-status {
-            background: #EBF8FF;
-            border: 2px solid #3B82F6;
+        .expense-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .expense-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+            background: #F7FAFC;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .expense-item input {
+            margin: 0;
+            padding: 8px;
+        }
+
+        .expense-item button {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-add-expense {
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .pending-record {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
             border-radius: 10px;
             padding: 15px;
             margin-top: 15px;
-            text-align: center;
         }
 
-        .excel-connected {
-            background: #ECFDF5;
-            border-color: #10B981;
-        }
-
-        @media (max-width: 768px) {
-            .search-filter {
-                grid-template-columns: 1fr;
-            }
-            
-            .database-controls {
-                grid-template-columns: 1fr 1fr;
-            }
+        .pending-record h4 {
+            color: #92400E;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>🥧 Ginger Calamansi Pie Business</h1>
-            <p>Excel-Powered Database Management System</p>
+            <h1>Ginger Calamansi Pie Business</h1>
+            <p>Simple Database Management System</p>
         </header>
-
-        <!-- Database Controls -->
-        <div class="card">
-            <div class="card-header">
-                🗄️ Excel Database Management
-            </div>
-            <div class="card-content">
-                <div class="database-controls">
-                    <button class="control-btn btn-export" onclick="exportToExcel()">
-                        📤 Export to Excel
-                    </button>
-                    <button class="control-btn btn-import" onclick="openImportModal()">
-                        📥 Import Excel File
-                    </button>
-                    <button class="control-btn btn-backup" onclick="createBackup()">
-                        💾 Create Backup
-                    </button>
-                    <button class="control-btn btn-analytics" onclick="showAnalytics()">
-                        📊 Analytics
-                    </button>
-                    <button class="control-btn btn-clear" onclick="clearAllData()">
-                        🗑️ Clear Data
-                    </button>
-                </div>
-
-                <div id="dbStatus" class="excel-status">
-                    <strong>Excel Database Status:</strong> <span id="statusText">Initializing...</span><br>
-                    <strong>Records:</strong> <span id="recordCount">0</span> | 
-                    <strong>Last Updated:</strong> <span id="lastUpdate">Never</span><br>
-                    <small>💡 All data is automatically saved to Excel files</small>
-                </div>
-            </div>
-        </div>
 
         <!-- Statistics Overview -->
         <div class="stats-grid">
             <div class="stat-card">
-                <span class="stat-icon">📈</span>
+                <span class="stat-icon">💰</span>
                 <div id="totalRevenue" class="stat-value">₱0</div>
                 <div class="stat-label">Total Revenue</div>
             </div>
             <div class="stat-card">
-                <span class="stat-icon">📉</span>
+                <span class="stat-icon">💸</span>
                 <div id="totalExpenses" class="stat-value">₱0</div>
                 <div class="stat-label">Total Expenses</div>
             </div>
             <div class="stat-card">
-                <span class="stat-icon">💰</span>
+                <span class="stat-icon">📈</span>
                 <div id="totalProfit" class="stat-value">₱0</div>
-                <div class="stat-label">Net Profit</div>
+                <div class="stat-label">Net Profit (Pie Sales Only)</div>
             </div>
             <div class="stat-card">
                 <span class="stat-icon">🥧</span>
                 <div id="totalPies" class="stat-value">0</div>
                 <div class="stat-label">Total Pies Sold</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">📅</span>
-                <div id="activeDays" class="stat-value">0</div>
-                <div class="stat-label">Active Days</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🎯</span>
-                <div id="avgProfit" class="stat-value">₱0</div>
-                <div class="stat-label">Avg Daily Profit</div>
             </div>
         </div>
 
@@ -463,7 +384,7 @@
             <!-- Daily Record Input -->
             <div class="card">
                 <div class="card-header">
-                    ✏️ Daily Business Record
+                    Daily Business Record
                 </div>
                 <div class="card-content">
                     <div class="form-group">
@@ -477,160 +398,86 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>📦 Ingredient Cost (₱)</label>
-                        <input type="number" id="ingredientCost" placeholder="Cost of ingredients" step="0.01" oninput="updateCalculations()">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>🚚 Transportation Cost (₱)</label>
-                        <input type="number" id="transportCost" placeholder="Transportation expenses" step="0.01" oninput="updateCalculations()">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>💼 Other Expenses (₱)</label>
-                        <input type="number" id="otherExpenses" placeholder="Other business expenses" step="0.01" oninput="updateCalculations()">
+                        <label>Expenses</label>
+                        <div id="expensesList">
+                            <!-- Dynamic expense items will be added here -->
+                        </div>
+                        <div class="expense-inputs">
+                            <input type="text" id="newExpenseName" placeholder="Expense name (e.g., Ingredients, Transportation)">
+                            <button type="button" class="btn-add-expense" onclick="addExpenseInput()">Add Expense</button>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label>📝 Notes (Optional)</label>
+                        <label>Notes (Optional)</label>
                         <textarea id="recordNotes" rows="3" placeholder="Daily observations, special events, etc."></textarea>
                     </div>
                     
-                    <button class="btn btn-orange" onclick="saveDailyRecord()">
-                        Save to Excel Database
-                    </button>
+                    <div class="button-group">
+                        <button class="btn btn-green" onclick="saveForReview()">
+                            Save for Review
+                        </button>
+                        <button class="btn btn-orange" id="saveToExcelBtn" onclick="saveToExcel()" disabled>
+                            Save to Excel Database
+                        </button>
+                    </div>
                     
                     <div class="calculation-preview">
-                        <h4 style="color: #D97706; margin-bottom: 15px;">💡 Live Calculations</h4>
+                        <h4 style="color: #D97706; margin-bottom: 15px;">Live Calculations</h4>
                         <div class="calculation-row">
                             <span>Revenue (Pies × ₱20):</span>
                             <span id="previewRevenue">₱0</span>
                         </div>
                         <div class="calculation-row">
-                            <span>Gross Profit (Pies × ₱6.52):</span>
-                            <span id="previewGrossProfit">₱0</span>
-                        </div>
-                        <div class="calculation-row">
-                            <span>Total Expenses:</span>
-                            <span id="previewExpenses">₱0</span>
-                        </div>
-                        <div class="calculation-row total">
-                            <span>Net Profit:</span>
+                            <span>Net Profit (Pies × ₱6.52):</span>
                             <span id="previewNetProfit">₱0</span>
                         </div>
+                        <div class="calculation-row expenses-total">
+                            <span>Total Expenses (Tracked Separately):</span>
+                            <span id="previewExpenses">₱0</span>
+                        </div>
+                    </div>
+
+                    <div id="pendingRecord" class="pending-record" style="display: none;">
+                        <h4>📋 Record Ready for Review</h4>
+                        <p>Your record has been saved for review. Check the details in the Recent Records section, then click "Save to Excel Database" to finalize.</p>
+                    </div>
+
+                    <div id="dbStatus" class="excel-status">
+                        <strong>Excel Database Status:</strong> <span id="statusText">Ready</span><br>
+                        <strong>Records:</strong> <span id="recordCount">0</span><br>
+                        <small>Use "Save for Review" first, then "Save to Excel Database" to finalize</small>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Search and Filter -->
+            <!-- Records Preview -->
             <div class="card">
                 <div class="card-header">
-                    🔍 Search & Filter Records
+                    Recent Records
                 </div>
                 <div class="card-content">
-                    <div class="search-filter">
-                        <div class="form-group">
-                            <label>From Date</label>
-                            <input type="date" id="filterFromDate" onchange="filterRecords()">
-                        </div>
-                        <div class="form-group">
-                            <label>To Date</label>
-                            <input type="date" id="filterToDate" onchange="filterRecords()">
-                        </div>
-                        <div class="form-group">
-                            <label>Min Pies</label>
-                            <input type="number" id="filterMinPies" placeholder="0" onchange="filterRecords()">
-                        </div>
-                        <button class="btn btn-primary" onclick="clearFilters()">Clear</button>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th class="text-right">Pies</th>
+                                    <th class="text-right">Revenue</th>
+                                    <th class="text-right">Profit</th>
+                                    <th class="text-right">Expenses</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recordsTableBody">
+                            </tbody>
+                        </table>
                     </div>
-
-                    <div style="margin-top: 20px;">
-                        <h4>Quick Stats for Filtered Data:</h4>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
-                            <div style="background: #F0F9FF; padding: 15px; border-radius: 8px; text-align: center;">
-                                <div style="color: #0369A1; font-weight: bold;">Filtered Records</div>
-                                <div id="filteredCount" style="font-size: 1.5rem; color: #0369A1;">0</div>
-                            </div>
-                            <div style="background: #ECFDF5; padding: 15px; border-radius: 8px; text-align: center;">
-                                <div style="color: #059669; font-weight: bold;">Filtered Profit</div>
-                                <div id="filteredProfit" style="font-size: 1.5rem; color: #059669;">₱0</div>
-                            </div>
-                        </div>
+                    <div id="noRecords" style="text-align: center; padding: 40px; color: #6B7280; display: none;">
+                        No records found. Add your first daily record!
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Historical Records Table -->
-        <div class="card">
-            <div class="card-header">
-                📄 Historical Business Records (Excel Database)
-            </div>
-            <div class="card-content">
-                <div style="overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th class="text-right">Pies</th>
-                                <th class="text-right">Revenue</th>
-                                <th class="text-right">Ingredients</th>
-                                <th class="text-right">Transport</th>
-                                <th class="text-right">Other</th>
-                                <th class="text-right">Net Profit</th>
-                                <th class="text-right">Per Pie</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recordsTableBody">
-                        </tbody>
-                    </table>
-                </div>
-                <div id="noRecords" style="text-align: center; padding: 40px; color: #6B7280; display: none;">
-                    📋 No records found. Add your first daily record above!<br>
-                    <small>Data will be automatically saved to Excel files</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Import Modal -->
-    <div id="importModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeImportModal()">&times;</span>
-            <h2 style="margin-bottom: 20px;">📥 Import Excel Data</h2>
-            
-            <div class="file-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-                <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
-                <p>Drop your Excel file here or click to browse</p>
-                <p style="font-size: 14px; color: #6B7280; margin-top: 10px;">Supported formats: .xlsx, .xls</p>
-                <p style="font-size: 12px; color: #9CA3AF; margin-top: 5px;">Expected columns: Date, Pies_Sold, Ingredient_Cost, Transportation_Cost, Other_Expenses</p>
-            </div>
-            
-            <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;" onchange="handleFileSelect(event)">
-            
-            <div style="margin-top: 20px;">
-                <button class="btn btn-primary" onclick="importExcelFile()" style="margin-right: 10px;">Import Excel Data</button>
-                <button class="btn" onclick="closeImportModal()" style="background: #6B7280; color: white;">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Analytics Modal -->
-    <div id="analyticsModal" class="modal">
-        <div class="modal-content" style="max-width: 800px;">
-            <span class="close" onclick="closeAnalyticsModal()">&times;</span>
-            <h2 style="margin-bottom: 20px;">📊 Business Analytics</h2>
-            
-            <div class="analytics-card">
-                <h3 style="margin-bottom: 20px;">📈 Performance Metrics</h3>
-                <div class="analytics-grid" id="analyticsGrid">
-                </div>
-            </div>
-
-            <div style="background: white; padding: 25px; border-radius: 15px;">
-                <h3 style="margin-bottom: 15px;">🏆 Best & Worst Days</h3>
-                <div id="bestWorstDays"></div>
             </div>
         </div>
     </div>
@@ -639,52 +486,27 @@
     <div id="notification" class="notification"></div>
 
     <script>
-        // Import the database module (in a real setup, this would be an ES6 import)
-        // For now, we'll define the Excel database class inline since we can't import modules in HTML artifacts
+        // Constants
+        const PIE_PRICE = 20;
+        const PROFIT_PER_PIE = 6.52;
 
-        // Excel Database Class
-        class PieBusinessExcelDB {
+        // Database
+        class SimplePieDB {
             constructor() {
-                this.dbName = 'PieBusinessDB';
-                this.version = '2.0';
                 this.dailyRecords = [];
-                this.excelFileName = 'pie-business-database.xlsx';
-                this.worksheetName = 'DailyRecords';
-                this.metadataSheet = 'Metadata';
-                
-                // Excel column structure
-                this.columns = [
-                    'ID', 'Date', 'Pies_Sold', 'Ingredient_Cost', 
-                    'Transportation_Cost', 'Other_Expenses', 'Revenue', 
-                    'Total_Expenses', 'Net_Profit', 'Notes', 'Created_At', 'Updated_At'
-                ];
-                
-                this.init();
-            }
-
-            async init() {
-                try {
-                    this.loadFromMemory();
-                    this.updateStats();
-                    this.updateTable();
-                    this.updateStatus();
-                    
-                    const savedFile = this.getSavedFile();
-                    if (savedFile) {
-                        await this.loadFromExcelData(savedFile);
-                    }
-                } catch (error) {
-                    console.error('Database initialization error:', error);
-                    showNotification('Database initialization failed', 'error');
-                }
+                this.pendingRecord = null;
+                this.loadFromMemory();
+                this.updateStats();
+                this.updateTable();
             }
 
             loadFromMemory() {
                 try {
-                    const savedData = sessionStorage.getItem(this.dbName);
+                    const savedData = sessionStorage.getItem('SimplePieDB');
                     if (savedData) {
                         const data = JSON.parse(savedData);
                         this.dailyRecords = data.dailyRecords || [];
+                        this.pendingRecord = data.pendingRecord || null;
                     }
                 } catch (error) {
                     console.error('Error loading from memory:', error);
@@ -695,10 +517,10 @@
                 try {
                     const data = {
                         dailyRecords: this.dailyRecords,
-                        lastUpdated: new Date().toISOString(),
-                        version: this.version
+                        pendingRecord: this.pendingRecord,
+                        lastUpdated: new Date().toISOString()
                     };
-                    sessionStorage.setItem(this.dbName, JSON.stringify(data));
+                    sessionStorage.setItem('SimplePieDB', JSON.stringify(data));
                     return true;
                 } catch (error) {
                     console.error('Error saving to memory:', error);
@@ -706,266 +528,94 @@
                 }
             }
 
-            getSavedFile() {
-                const fileData = sessionStorage.getItem('excelFileData');
-                return fileData ? JSON.parse(fileData) : null;
-            }
-
-            setSavedFile(data) {
-                sessionStorage.setItem('excelFileData', JSON.stringify(data));
-            }
-
-            async createExcelWorkbook() {
+            addPendingRecord(record) {
                 try {
-                    const wb = XLSX.utils.book_new();
+                    record.id = record.id || this.generateId();
+                    record.status = 'pending';
+                    record.createdAt = new Date().toISOString();
+                    record.updatedAt = new Date().toISOString();
                     
-                    const wsData = this.createDataWorksheet();
-                    XLSX.utils.book_append_sheet(wb, wsData, this.worksheetName);
+                    this.pendingRecord = record;
+                    this.saveToMemory();
                     
-                    const wsMetadata = this.createMetadataWorksheet();
-                    XLSX.utils.book_append_sheet(wb, wsMetadata, this.metadataSheet);
+                    // Show pending record in UI
+                    document.getElementById('pendingRecord').style.display = 'block';
+                    document.getElementById('saveToExcelBtn').disabled = false;
                     
-                    return wb;
-                } catch (error) {
-                    console.error('Error creating workbook:', error);
-                    throw error;
-                }
-            }
-
-            createDataWorksheet() {
-                const data = [];
-                
-                data.push(this.columns);
-                
-                this.dailyRecords.forEach(record => {
-                    data.push([
-                        record.id || '',
-                        record.date || '',
-                        record.piesSold || 0,
-                        record.ingredientCost || 0,
-                        record.transportationCost || 0,
-                        record.otherExpenses || 0,
-                        record.revenue || 0,
-                        record.totalExpenses || 0,
-                        record.netProfit || 0,
-                        record.notes || '',
-                        record.createdAt || '',
-                        record.updatedAt || new Date().toISOString()
-                    ]);
-                });
-                
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                
-                ws['!cols'] = [
-                    { wch: 15 }, { wch: 12 }, { wch: 10 }, { wch: 15 },
-                    { wch: 18 }, { wch: 15 }, { wch: 12 }, { wch: 15 },
-                    { wch: 12 }, { wch: 30 }, { wch: 20 }, { wch: 20 }
-                ];
-                
-                return ws;
-            }
-
-            createMetadataWorksheet() {
-                const metadata = [
-                    ['Property', 'Value'],
-                    ['Database Version', this.version],
-                    ['Created Date', new Date().toISOString()],
-                    ['Total Records', this.dailyRecords.length],
-                    ['Last Export', new Date().toISOString()],
-                    ['Pie Price', '20'],
-                    ['Profit Per Pie', '6.52'],
-                    ['Application', 'Ginger Calamansi Pie Business System']
-                ];
-                
-                const ws = XLSX.utils.aoa_to_sheet(metadata);
-                ws['!cols'] = [{ wch: 20 }, { wch: 30 }];
-                
-                return ws;
-            }
-
-            async exportToExcel() {
-                try {
-                    const wb = await this.createExcelWorkbook();
+                    // Update stats to include pending record for preview
+                    this.updateStatsWithPending();
                     
-                    XLSX.writeFile(wb, this.excelFileName);
+                    showNotification('Record saved for review!', 'success');
+                    this.updateTable(); // This will show the pending record
                     
-                    const fileData = {
-                        fileName: this.excelFileName,
-                        exportDate: new Date().toISOString(),
-                        recordCount: this.dailyRecords.length
-                    };
-                    this.setSavedFile(fileData);
-                    
-                    showNotification(`Data exported to ${this.excelFileName}`, 'success');
-                    this.updateStatus();
                     return true;
                 } catch (error) {
-                    console.error('Excel export error:', error);
-                    showNotification('Error exporting to Excel', 'error');
+                    console.error('Error adding pending record:', error);
+                    showNotification('Error saving record for review', 'error');
                     return false;
                 }
             }
 
-            async importFromExcel(file) {
+            async confirmPendingRecord() {
+                if (!this.pendingRecord) {
+                    showNotification('No pending record to save', 'error');
+                    return false;
+                }
+
                 try {
-                    return new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        
-                        reader.onload = async (e) => {
-                            try {
-                                const data = new Uint8Array(e.target.result);
-                                const workbook = XLSX.read(data, { type: 'array' });
-                                
-                                if (!workbook.SheetNames.includes(this.worksheetName)) {
-                                    // Try to find any sheet with data
-                                    const firstSheet = workbook.SheetNames[0];
-                                    if (!firstSheet) {
-                                        throw new Error('No worksheets found in Excel file');
-                                    }
-                                    const worksheet = workbook.Sheets[firstSheet];
-                                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                                    const importedRecords = await this.processImportedData(jsonData);
-                                    resolve(importedRecords);
-                                } else {
-                                    const worksheet = workbook.Sheets[this.worksheetName];
-                                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                                    const importedRecords = await this.processImportedData(jsonData);
-                                    resolve(importedRecords);
-                                }
-                            } catch (error) {
-                                reject(error);
-                            }
-                        };
-                        
-                        reader.onerror = () => reject(new Error('File reading failed'));
-                        reader.readAsArrayBuffer(file);
-                    });
-                } catch (error) {
-                    console.error('Excel import error:', error);
-                    throw error;
-                }
-            }
-
-            async processImportedData(jsonData) {
-                if (jsonData.length < 2) {
-                    throw new Error('Invalid Excel file format - no data rows found');
-                }
-                
-                const headers = jsonData[0];
-                const records = [];
-                
-                // Map headers to our expected format
-                const headerMap = this.createHeaderMap(headers);
-                
-                for (let i = 1; i < jsonData.length; i++) {
-                    const row = jsonData[i];
-                    if (!row || row.length === 0) continue;
+                    const record = { ...this.pendingRecord };
+                    record.status = 'confirmed';
+                    record.updatedAt = new Date().toISOString();
                     
-                    const record = this.createRecordFromRow(row, headerMap, headers);
-                    if (record.date) { // Only add records with valid dates
-                        records.push(record);
-                    }
-                }
-                
-                return records;
-            }
-
-            createHeaderMap(headers) {
-                const map = {};
-                headers.forEach((header, index) => {
-                    const normalizedHeader = header?.toString().toLowerCase().trim();
-                    
-                    if (normalizedHeader.includes('date')) map.date = index;
-                    else if (normalizedHeader.includes('pies') || normalizedHeader.includes('sold')) map.piesSold = index;
-                    else if (normalizedHeader.includes('ingredient')) map.ingredientCost = index;
-                    else if (normalizedHeader.includes('transport')) map.transportationCost = index;
-                    else if (normalizedHeader.includes('other') && normalizedHeader.includes('expense')) map.otherExpenses = index;
-                    else if (normalizedHeader.includes('revenue')) map.revenue = index;
-                    else if (normalizedHeader.includes('total') && normalizedHeader.includes('expense')) map.totalExpenses = index;
-                    else if (normalizedHeader.includes('net') || normalizedHeader.includes('profit')) map.netProfit = index;
-                    else if (normalizedHeader.includes('note')) map.notes = index;
-                    else if (normalizedHeader.includes('id')) map.id = index;
-                });
-                
-                return map;
-            }
-
-            createRecordFromRow(row, headerMap, headers) {
-                const record = {};
-                
-                record.id = row[headerMap.id] || this.generateId();
-                record.date = this.parseDate(row[headerMap.date]);
-                record.piesSold = parseInt(row[headerMap.piesSold]) || 0;
-                record.ingredientCost = parseFloat(row[headerMap.ingredientCost]) || 0;
-                record.transportationCost = parseFloat(row[headerMap.transportationCost]) || 0;
-                record.otherExpenses = parseFloat(row[headerMap.otherExpenses]) || 0;
-                record.notes = row[headerMap.notes] || '';
-                
-                // Calculate derived fields
-                record.revenue = parseFloat(row[headerMap.revenue]) || (record.piesSold * 20);
-                record.totalExpenses = parseFloat(row[headerMap.totalExpenses]) || 
-                    (record.ingredientCost + record.transportationCost + record.otherExpenses);
-                record.netProfit = parseFloat(row[headerMap.netProfit]) || 
-                    ((record.piesSold * 6.52) - record.totalExpenses);
-                
-                record.createdAt = new Date().toISOString();
-                record.updatedAt = new Date().toISOString();
-                
-                return record;
-            }
-
-            parseDate(dateValue) {
-                if (!dateValue) return new Date().toISOString().split('T')[0];
-                
-                if (typeof dateValue === 'number') {
-                    const excelEpoch = new Date(1899, 11, 30);
-                    const jsDate = new Date(excelEpoch.getTime() + dateValue * 86400000);
-                    return jsDate.toISOString().split('T')[0];
-                }
-                
-                const date = new Date(dateValue);
-                return isNaN(date.getTime()) ? 
-                    new Date().toISOString().split('T')[0] : 
-                    date.toISOString().split('T')[0];
-            }
-
-            generateId() {
-                return Date.now().toString() + Math.random().toString(36).substr(2, 5);
-            }
-
-            async addRecord(record) {
-                try {
+                    // Check if updating existing record
                     const existingIndex = this.dailyRecords.findIndex(r => r.date === record.date);
                     
                     if (existingIndex >= 0) {
                         record.id = this.dailyRecords[existingIndex].id;
-                        record.updatedAt = new Date().toISOString();
                         this.dailyRecords[existingIndex] = record;
                         showNotification('Record updated and saved to Excel!', 'success');
                     } else {
-                        record.id = this.generateId();
-                        record.createdAt = new Date().toISOString();
-                        record.updatedAt = new Date().toISOString();
                         this.dailyRecords.push(record);
-                        showNotification('New record added and saved to Excel!', 'success');
+                        showNotification('New record saved to Excel!', 'success');
                     }
+                    
+                    // Clear pending record
+                    this.pendingRecord = null;
+                    document.getElementById('pendingRecord').style.display = 'none';
+                    document.getElementById('saveToExcelBtn').disabled = true;
                     
                     this.saveToMemory();
                     await this.exportToExcel();
                     
+                    // Update stats back to confirmed records only
                     this.updateStats();
                     this.updateTable();
+                    this.clearForm();
                     
                     return true;
                 } catch (error) {
-                    console.error('Error adding record:', error);
-                    showNotification('Error saving record', 'error');
+                    console.error('Error confirming record:', error);
+                    showNotification('Error saving to Excel', 'error');
                     return false;
                 }
             }
 
             async deleteRecord(id) {
                 try {
+                    // Check if deleting pending record
+                    if (this.pendingRecord && this.pendingRecord.id === id) {
+                        this.pendingRecord = null;
+                        document.getElementById('pendingRecord').style.display = 'none';
+                        document.getElementById('saveToExcelBtn').disabled = true;
+                        this.saveToMemory();
+                        // Update stats back to confirmed records only
+                        this.updateStats();
+                        this.updateTable();
+                        showNotification('Pending record cancelled!', 'success');
+                        return true;
+                    }
+
+                    // Delete confirmed record
                     const index = this.dailyRecords.findIndex(r => r.id === id);
                     if (index >= 0) {
                         this.dailyRecords.splice(index, 1);
@@ -975,7 +625,7 @@
                         
                         this.updateStats();
                         this.updateTable();
-                        showNotification('Record deleted and Excel updated!', 'success');
+                        showNotification('Record deleted!', 'success');
                         
                         return true;
                     }
@@ -987,83 +637,100 @@
                 }
             }
 
-            async importRecords(records) {
-                if (records && records.length > 0) {
-                    const confirmImport = confirm(
-                        `This will import ${records.length} records from Excel. Current data will be merged. Continue?`
-                    );
-                    
-                    if (confirmImport) {
-                        records.forEach(newRecord => {
-                            const existingIndex = this.dailyRecords.findIndex(r => r.date === newRecord.date);
-                            if (existingIndex >= 0) {
-                                this.dailyRecords[existingIndex] = newRecord;
-                            } else {
-                                this.dailyRecords.push(newRecord);
-                            }
-                        });
-                        
-                        this.saveToMemory();
-                        await this.exportToExcel();
-                        this.updateStats();
-                        this.updateTable();
-                        
-                        showNotification(`Successfully imported ${records.length} records from Excel!`, 'success');
-                        return true;
-                    }
-                }
-                return false;
+            generateId() {
+                return Date.now().toString() + Math.random().toString(36).substr(2, 5);
             }
 
-            async clearAllData() {
-                if (confirm('Are you sure you want to delete ALL data? This will create a new empty Excel file!')) {
-                    this.dailyRecords = [];
-                    this.saveToMemory();
-                    await this.exportToExcel();
-                    this.updateStats();
-                    this.updateTable();
-                    sessionStorage.removeItem('excelFileData');
-                    showNotification('All data cleared and new Excel file created!', 'info');
-                }
-            }
-
-            async createBackup() {
+            async exportToExcel() {
                 try {
-                    const wb = await this.createExcelWorkbook();
-                    const backupFileName = `pie-business-backup-${new Date().toISOString().split('T')[0]}.xlsx`;
+                    const wb = XLSX.utils.book_new();
                     
-                    XLSX.writeFile(wb, backupFileName);
-                    showNotification(`Backup created: ${backupFileName}`, 'success');
+                    // Prepare data for Excel
+                    const data = [];
+                    data.push(['Date', 'Pies_Sold', 'Revenue', 'Net_Profit_Pie_Sales', 'Total_Expenses', 'Expenses_Detail', 'Notes']);
+                    
+                    this.dailyRecords.forEach(record => {
+                        const expenseDetail = record.expenses ? 
+                            record.expenses.map(exp => {
+                                const originalInput = exp.originalInput || exp.amount;
+                                return `${exp.name}: ${originalInput} (₱${exp.amount})`;
+                            }).join('; ') : 
+                            '';
+                        
+                        data.push([
+                            record.date,
+                            record.piesSold || 0,
+                            record.revenue || 0,
+                            record.netProfit || 0,
+                            record.totalExpenses || 0,
+                            expenseDetail,
+                            record.notes || ''
+                        ]);
+                    });
+                    
+                    const ws = XLSX.utils.aoa_to_sheet(data);
+                    ws['!cols'] = [
+                        { wch: 12 }, { wch: 10 }, { wch: 12 }, 
+                        { wch: 18 }, { wch: 15 }, { wch: 40 }, { wch: 30 }
+                    ];
+                    
+                    XLSX.utils.book_append_sheet(wb, ws, 'DailyRecords');
+                    
+                    const fileName = `pie-business-${new Date().toISOString().split('T')[0]}.xlsx`;
+                    XLSX.writeFile(wb, fileName);
                     
                     return true;
                 } catch (error) {
-                    console.error('Backup error:', error);
-                    showNotification('Error creating backup', 'error');
+                    console.error('Excel export error:', error);
+                    showNotification('Error exporting to Excel', 'error');
                     return false;
                 }
             }
 
             updateStats() {
+                // Only include confirmed records in stats
                 const totalRevenue = this.dailyRecords.reduce((sum, record) => sum + (record.revenue || 0), 0);
                 const totalExpenses = this.dailyRecords.reduce((sum, record) => sum + (record.totalExpenses || 0), 0);
                 const totalProfit = this.dailyRecords.reduce((sum, record) => sum + (record.netProfit || 0), 0);
                 const totalPies = this.dailyRecords.reduce((sum, record) => sum + (record.piesSold || 0), 0);
-                const activeDays = this.dailyRecords.length;
-                const avgProfit = activeDays > 0 ? totalProfit / activeDays : 0;
 
                 document.getElementById('totalRevenue').textContent = '₱' + totalRevenue.toLocaleString();
                 document.getElementById('totalExpenses').textContent = '₱' + totalExpenses.toLocaleString();
                 document.getElementById('totalProfit').textContent = '₱' + totalProfit.toLocaleString();
                 document.getElementById('totalPies').textContent = totalPies.toLocaleString();
-                document.getElementById('activeDays').textContent = activeDays.toLocaleString();
-                document.getElementById('avgProfit').textContent = '₱' + avgProfit.toFixed(2);
+                document.getElementById('recordCount').textContent = this.dailyRecords.length;
+            }
+
+            updateStatsWithPending() {
+                // Include both confirmed records and pending record for preview
+                let allRecords = [...this.dailyRecords];
+                if (this.pendingRecord) {
+                    allRecords.push(this.pendingRecord);
+                }
+                
+                const totalRevenue = allRecords.reduce((sum, record) => sum + (record.revenue || 0), 0);
+                const totalExpenses = allRecords.reduce((sum, record) => sum + (record.totalExpenses || 0), 0);
+                const totalProfit = allRecords.reduce((sum, record) => sum + (record.netProfit || 0), 0);
+                const totalPies = allRecords.reduce((sum, record) => sum + (record.piesSold || 0), 0);
+
+                document.getElementById('totalRevenue').textContent = '₱' + totalRevenue.toLocaleString();
+                document.getElementById('totalExpenses').textContent = '₱' + totalExpenses.toLocaleString();
+                document.getElementById('totalProfit').textContent = '₱' + totalProfit.toLocaleString();
+                document.getElementById('totalPies').textContent = totalPies.toLocaleString();
+                document.getElementById('recordCount').textContent = `${this.dailyRecords.length}${this.pendingRecord ? ' (+1 pending)' : ''}`;
             }
 
             updateTable() {
                 const tbody = document.getElementById('recordsTableBody');
                 const noRecords = document.getElementById('noRecords');
                 
-                if (this.dailyRecords.length === 0) {
+                // Combine confirmed records and pending record for display
+                let allRecords = [...this.dailyRecords];
+                if (this.pendingRecord) {
+                    allRecords.unshift(this.pendingRecord); // Show pending record at top
+                }
+                
+                if (allRecords.length === 0) {
                     tbody.innerHTML = '';
                     noRecords.style.display = 'block';
                     return;
@@ -1071,23 +738,37 @@
 
                 noRecords.style.display = 'none';
                 
-                const sortedRecords = [...this.dailyRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const sortedRecords = allRecords.sort((a, b) => {
+                    // Pending records first, then by date
+                    if (a.status === 'pending' && b.status !== 'pending') return -1;
+                    if (a.status !== 'pending' && b.status === 'pending') return 1;
+                    return new Date(b.date) - new Date(a.date);
+                });
+                
+                const recentRecords = sortedRecords.slice(0, 10); // Show only last 10 records
                 
                 tbody.innerHTML = '';
-                sortedRecords.forEach(record => {
+                recentRecords.forEach(record => {
                     const row = document.createElement('tr');
                     const profitClass = (record.netProfit || 0) >= 0 ? 'profit-positive' : 'profit-negative';
-                    const profitPerPie = record.piesSold > 0 ? (record.netProfit / record.piesSold) : 0;
+                    const isPending = record.status === 'pending';
+                    
+                    if (isPending) {
+                        row.style.backgroundColor = '#FEF3C7';
+                        row.style.border = '2px solid #F59E0B';
+                    }
+                    
+                    const statusBadge = isPending ? 
+                        '<span style="background: #F59E0B; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px;">REVIEW</span>' :
+                        '<span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px;">SAVED</span>';
                     
                     row.innerHTML = `
                         <td>${new Date(record.date).toLocaleDateString()}</td>
                         <td class="text-right">${record.piesSold || 0}</td>
                         <td class="text-right">₱${(record.revenue || 0).toLocaleString()}</td>
-                        <td class="text-right">₱${(record.ingredientCost || 0).toLocaleString()}</td>
-                        <td class="text-right">₱${(record.transportationCost || 0).toLocaleString()}</td>
-                        <td class="text-right">₱${(record.otherExpenses || 0).toLocaleString()}</td>
                         <td class="text-right ${profitClass}">₱${(record.netProfit || 0).toLocaleString()}</td>
-                        <td class="text-right ${profitClass}">₱${profitPerPie.toFixed(2)}</td>
+                        <td class="text-right">₱${(record.totalExpenses || 0).toLocaleString()}</td>
+                        <td>${statusBadge}</td>
                         <td>
                             <button onclick="editRecord('${record.id}')" style="background: #F59E0B; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-right: 5px;">Edit</button>
                             <button onclick="deleteRecord('${record.id}')" style="background: #EF4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Delete</button>
@@ -1097,75 +778,187 @@
                 });
             }
 
-            updateStatus() {
-                const savedFile = this.getSavedFile();
-                const statusText = savedFile ? `Connected to ${savedFile.fileName}` : 'Ready (Excel will be created)';
+            clearForm() {
+                document.getElementById('piesSold').value = '';
+                document.getElementById('recordNotes').value = '';
+                document.getElementById('expensesList').innerHTML = '';
+                expenseCounter = 0;
                 
-                document.getElementById('statusText').textContent = statusText;
-                document.getElementById('recordCount').textContent = this.dailyRecords.length;
+                // Add default expense inputs
+                addExpenseInput('Ingredients', 0);
+                addExpenseInput('Transportation', 0);
                 
-                const lastRecord = this.dailyRecords.length > 0 
-                    ? Math.max(...this.dailyRecords.map(r => new Date(r.date).getTime()))
-                    : null;
-                
-                document.getElementById('lastUpdate').textContent = lastRecord 
-                    ? new Date(lastRecord).toLocaleDateString()
-                    : 'Never';
-
-                // Update status styling
-                const dbStatus = document.getElementById('dbStatus');
-                if (savedFile) {
-                    dbStatus.className = 'excel-status excel-connected';
-                } else {
-                    dbStatus.className = 'excel-status';
-                }
-            }
-
-            getAnalytics() {
-                if (this.dailyRecords.length === 0) return null;
-
-                const sortedRecords = [...this.dailyRecords].sort((a, b) => new Date(b.date) - new Date(a.date));
-                const bestProfitDay = [...this.dailyRecords].sort((a, b) => (b.netProfit || 0) - (a.netProfit || 0))[0];
-                const worstProfitDay = [...this.dailyRecords].sort((a, b) => (a.netProfit || 0) - (b.netProfit || 0))[0];
-                const bestSalesDay = [...this.dailyRecords].sort((a, b) => (b.piesSold || 0) - (a.piesSold || 0))[0];
-
-                const totalRevenue = this.dailyRecords.reduce((sum, r) => sum + (r.revenue || 0), 0);
-                const totalExpenses = this.dailyRecords.reduce((sum, r) => sum + (r.totalExpenses || 0), 0);
-                const totalPies = this.dailyRecords.reduce((sum, r) => sum + (r.piesSold || 0), 0);
-                const profitMargin = totalRevenue > 0 ? ((totalRevenue - totalExpenses) / totalRevenue * 100) : 0;
-
-                return {
-                    bestProfitDay,
-                    worstProfitDay,
-                    bestSalesDay,
-                    profitMargin: profitMargin.toFixed(1),
-                    avgPiesPerDay: (totalPies / this.dailyRecords.length).toFixed(1),
-                    avgRevenuePerDay: (totalRevenue / this.dailyRecords.length).toFixed(2),
-                    totalDaysOperating: this.dailyRecords.length,
-                    profitableDays: this.dailyRecords.filter(r => (r.netProfit || 0) > 0).length
-                };
+                updateCalculations();
             }
         }
 
-        // Constants
-        const PIE_PRICE = 20;
-        const PROFIT_PER_PIE = 6.52;
+        // Initialize database
+        let db = new SimplePieDB();
 
-        // Initialize Excel Database
-        let db = null;
+        // Expense management
+        let expenseCounter = 0;
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the Excel database
-            db = new PieBusinessExcelDB();
+        function addExpenseInput(name = '', amount = 0) {
+            const expensesList = document.getElementById('expensesList');
+            const expenseName = name || document.getElementById('newExpenseName').value || `Expense ${expenseCounter + 1}`;
             
-            // Set today's date as default
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('recordDate').value = today;
+            if (!name) {
+                document.getElementById('newExpenseName').value = '';
+            }
+            
+            const expenseItem = document.createElement('div');
+            expenseItem.className = 'expense-item';
+            expenseItem.id = `expense-${expenseCounter}`;
+            
+            expenseItem.innerHTML = `
+                <input type="text" value="${expenseName}" placeholder="Expense name">
+                <input type="text" value="${amount}" placeholder="Amount (e.g., 100 or 50/2)" oninput="updateCalculations()">
+                <button onclick="removeExpenseInput(${expenseCounter})">Remove</button>
+            `;
+            
+            expensesList.appendChild(expenseItem);
+            expenseCounter++;
             updateCalculations();
-        });
+        }
 
-        // Global function to make showNotification available to the database class
+        function removeExpenseInput(id) {
+            const expenseItem = document.getElementById(`expense-${id}`);
+            if (expenseItem) {
+                expenseItem.remove();
+                updateCalculations();
+            }
+        }
+
+        function updateCalculations() {
+            const piesSold = parseInt(document.getElementById('piesSold').value) || 0;
+            const expenses = getExpenses();
+            const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
+            const revenue = piesSold * PIE_PRICE;
+            const netProfit = piesSold * PROFIT_PER_PIE; // Only based on pie sales
+
+            document.getElementById('previewRevenue').textContent = '₱' + revenue.toLocaleString();
+            document.getElementById('previewNetProfit').textContent = '₱' + netProfit.toLocaleString();
+            document.getElementById('previewExpenses').textContent = '₱' + totalExpenses.toLocaleString();
+        }
+
+        function getExpenses() {
+            const expenseItems = document.querySelectorAll('.expense-item');
+            const expenses = [];
+            
+            expenseItems.forEach(item => {
+                const nameInput = item.querySelector('input[type="text"]');
+                const amountInputs = item.querySelectorAll('input[type="text"]');
+                const amountInput = amountInputs[1]; // Second text input is the amount
+                
+                if (nameInput && amountInput) {
+                    const name = nameInput.value.trim();
+                    let amountStr = amountInput.value.trim();
+                    let amount = 0;
+                    
+                    // Handle expressions like "100/2" or "50+25"
+                    if (amountStr) {
+                        try {
+                            // Replace division and multiplication operators for eval
+                            const expression = amountStr.replace(/[^0-9+\-*/().\s]/g, '');
+                            if (expression) {
+                                amount = eval(expression) || 0;
+                            }
+                        } catch (e) {
+                            // If eval fails, try to parse as simple number
+                            amount = parseFloat(amountStr) || 0;
+                        }
+                    }
+                    
+                    if (name) {
+                        expenses.push({ name, amount, originalInput: amountStr });
+                    }
+                }
+            });
+            
+            return expenses;
+        }
+
+        function saveForReview() {
+            const date = document.getElementById('recordDate').value;
+            const piesSold = parseInt(document.getElementById('piesSold').value) || 0;
+            const notes = document.getElementById('recordNotes').value;
+            const expenses = getExpenses();
+
+            if (!date) {
+                showNotification('Please select a date', 'error');
+                return;
+            }
+
+            const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+            const revenue = piesSold * PIE_PRICE;
+            const netProfit = piesSold * PROFIT_PER_PIE; // Only based on pie sales, not minus expenses
+
+            const record = {
+                date: date,
+                piesSold: piesSold,
+                revenue: revenue,
+                netProfit: netProfit, // Pure profit from pie sales
+                totalExpenses: totalExpenses, // Tracked separately
+                expenses: expenses,
+                notes: notes
+            };
+
+            db.addPendingRecord(record);
+        }
+
+        async function saveToExcel() {
+            await db.confirmPendingRecord();
+        }
+
+        function editRecord(id) {
+            // Check if editing pending record
+            if (db.pendingRecord && db.pendingRecord.id === id) {
+                const record = db.pendingRecord;
+                loadRecordToForm(record);
+                showNotification('Pending record loaded for editing', 'info');
+                return;
+            }
+
+            // Edit confirmed record
+            const record = db.dailyRecords.find(r => r.id === id);
+            if (!record) return;
+
+            loadRecordToForm(record);
+            showNotification('Record loaded for editing', 'info');
+        }
+
+        function loadRecordToForm(record) {
+            document.getElementById('recordDate').value = record.date;
+            document.getElementById('piesSold').value = record.piesSold || '';
+            document.getElementById('recordNotes').value = record.notes || '';
+            
+            // Clear existing expense inputs
+            document.getElementById('expensesList').innerHTML = '';
+            expenseCounter = 0;
+            
+            // Add expense inputs from record
+            if (record.expenses && record.expenses.length > 0) {
+                record.expenses.forEach(expense => {
+                    addExpenseInput(expense.name, expense.amount);
+                });
+            } else {
+                // Add default expense inputs if none exist
+                addExpenseInput('Ingredients', 0);
+                addExpenseInput('Transportation', 0);
+            }
+            
+            updateCalculations();
+            
+            document.querySelector('.main-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function deleteRecord(id) {
+            if (confirm('Are you sure you want to delete this record?')) {
+                await db.deleteRecord(id);
+            }
+        }
+
         function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1177,340 +970,23 @@
             }, 3000);
         }
 
-        // Make it available globally
-        window.showNotification = showNotification;
-
-        // Core Functions
-        function updateCalculations() {
-            const piesSold = parseInt(document.getElementById('piesSold').value) || 0;
-            const ingredientCost = parseFloat(document.getElementById('ingredientCost').value) || 0;
-            const transportCost = parseFloat(document.getElementById('transportCost').value) || 0;
-            const otherExpenses = parseFloat(document.getElementById('otherExpenses').value) || 0;
-
-            const revenue = piesSold * PIE_PRICE;
-            const grossProfit = piesSold * PROFIT_PER_PIE;
-            const totalExpenses = ingredientCost + transportCost + otherExpenses;
-            const netProfit = grossProfit - totalExpenses;
-
-            document.getElementById('previewRevenue').textContent = '₱' + revenue.toLocaleString();
-            document.getElementById('previewGrossProfit').textContent = '₱' + grossProfit.toLocaleString();
-            document.getElementById('previewExpenses').textContent = '₱' + totalExpenses.toLocaleString();
-            document.getElementById('previewNetProfit').textContent = '₱' + netProfit.toLocaleString();
-        }
-
-        async function saveDailyRecord() {
-            const date = document.getElementById('recordDate').value;
-            const piesSold = parseInt(document.getElementById('piesSold').value) || 0;
-            const ingredientCost = parseFloat(document.getElementById('ingredientCost').value) || 0;
-            const transportCost = parseFloat(document.getElementById('transportCost').value) || 0;
-            const otherExpenses = parseFloat(document.getElementById('otherExpenses').value) || 0;
-            const notes = document.getElementById('recordNotes').value;
-
-            if (!date) {
-                showNotification('Please select a date', 'error');
-                return;
-            }
-
-            const revenue = piesSold * PIE_PRICE;
-            const totalExpenses = ingredientCost + transportCost + otherExpenses;
-            const netProfit = (piesSold * PROFIT_PER_PIE) - totalExpenses;
-
-            const record = {
-                date: date,
-                piesSold: piesSold,
-                ingredientCost: ingredientCost,
-                transportationCost: transportCost,
-                otherExpenses: otherExpenses,
-                revenue: revenue,
-                totalExpenses: totalExpenses,
-                netProfit: netProfit,
-                notes: notes
-            };
-
-            const success = await db.addRecord(record);
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('recordDate').value = today;
             
-            if (success) {
-                // Clear form
-                document.getElementById('piesSold').value = '';
-                document.getElementById('ingredientCost').value = '';
-                document.getElementById('transportCost').value = '';
-                document.getElementById('otherExpenses').value = '';
-                document.getElementById('recordNotes').value = '';
-                updateCalculations();
+            // Add default expense inputs
+            addExpenseInput('Ingredients', 0);
+            addExpenseInput('Transportation', 0);
+            
+            // Check if there's a pending record on load
+            if (db.pendingRecord) {
+                document.getElementById('pendingRecord').style.display = 'block';
+                document.getElementById('saveToExcelBtn').disabled = false;
             }
-        }
-
-        function editRecord(id) {
-            const record = db.dailyRecords.find(r => r.id === id);
-            if (!record) return;
-
-            document.getElementById('recordDate').value = record.date;
-            document.getElementById('piesSold').value = record.piesSold || '';
-            document.getElementById('ingredientCost').value = record.ingredientCost || '';
-            document.getElementById('transportCost').value = record.transportationCost || '';
-            document.getElementById('otherExpenses').value = record.otherExpenses || '';
-            document.getElementById('recordNotes').value = record.notes || '';
             
             updateCalculations();
-            
-            document.querySelector('.main-grid').scrollIntoView({ behavior: 'smooth' });
-            showNotification('Record loaded for editing', 'info');
-        }
-
-        async function deleteRecord(id) {
-            if (confirm('Are you sure you want to delete this record? This will update the Excel file.')) {
-                await db.deleteRecord(id);
-            }
-        }
-
-        // Database Control Functions
-        async function exportToExcel() {
-            await db.exportToExcel();
-        }
-
-        function openImportModal() {
-            document.getElementById('importModal').style.display = 'block';
-        }
-
-        function closeImportModal() {
-            document.getElementById('importModal').style.display = 'none';
-            document.getElementById('fileInput').value = '';
-        }
-
-        async function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file && (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || 
-                        file.type === 'application/vnd.ms-excel' ||
-                        file.name.endsWith('.xlsx') || 
-                        file.name.endsWith('.xls'))) {
-                try {
-                    showNotification('Processing Excel file...', 'info');
-                    const records = await db.importFromExcel(file);
-                    const success = await db.importRecords(records);
-                    if (success) {
-                        closeImportModal();
-                    }
-                } catch (error) {
-                    console.error('Import error:', error);
-                    showNotification(`Import failed: ${error.message}`, 'error');
-                }
-            } else {
-                showNotification('Please select a valid Excel file (.xlsx or .xls)', 'error');
-            }
-        }
-
-        async function importExcelFile() {
-            document.getElementById('fileInput').click();
-        }
-
-        async function createBackup() {
-            await db.createBackup();
-        }
-
-        async function clearAllData() {
-            await db.clearAllData();
-        }
-
-        function showAnalytics() {
-            const analytics = db.getAnalytics();
-            const modal = document.getElementById('analyticsModal');
-            const grid = document.getElementById('analyticsGrid');
-            const bestWorst = document.getElementById('bestWorstDays');
-
-            if (!analytics) {
-                showNotification('No data available for analytics', 'info');
-                return;
-            }
-
-            grid.innerHTML = `
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">📊</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">${analytics.profitMargin}%</div>
-                    <div>Profit Margin</div>
-                </div>
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">🥧</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">${analytics.avgPiesPerDay}</div>
-                    <div>Avg Pies/Day</div>
-                </div>
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">💰</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">₱${analytics.avgRevenuePerDay}</div>
-                    <div>Avg Revenue/Day</div>
-                </div>
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">📅</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">${analytics.totalDaysOperating}</div>
-                    <div>Days Operating</div>
-                </div>
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">📈</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">${analytics.profitableDays}</div>
-                    <div>Profitable Days</div>
-                </div>
-                <div class="analytics-item">
-                    <div style="font-size: 1.5rem;">🎯</div>
-                    <div style="font-size: 1.2rem; margin-top: 10px;">${((analytics.profitableDays / analytics.totalDaysOperating) * 100).toFixed(1)}%</div>
-                    <div>Success Rate</div>
-                </div>
-            `;
-
-            bestWorst.innerHTML = `
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div style="background: #ECFDF5; padding: 15px; border-radius: 10px;">
-                        <h4 style="color: #059669; margin-bottom: 10px;">🏆 Best Profit Day</h4>
-                        <div><strong>Date:</strong> ${new Date(analytics.bestProfitDay.date).toLocaleDateString()}</div>
-                        <div><strong>Profit:</strong> ₱${analytics.bestProfitDay.netProfit.toLocaleString()}</div>
-                        <div><strong>Pies:</strong> ${analytics.bestProfitDay.piesSold}</div>
-                    </div>
-                    <div style="background: #EBF8FF; padding: 15px; border-radius: 10px;">
-                        <h4 style="color: #0369A1; margin-bottom: 10px;">📈 Best Sales Day</h4>
-                        <div><strong>Date:</strong> ${new Date(analytics.bestSalesDay.date).toLocaleDateString()}</div>
-                        <div><strong>Pies:</strong> ${analytics.bestSalesDay.piesSold}</div>
-                        <div><strong>Revenue:</strong> ₱${analytics.bestSalesDay.revenue.toLocaleString()}</div>
-                    </div>
-                    <div style="background: #FEF2F2; padding: 15px; border-radius: 10px;">
-                        <h4 style="color: #DC2626; margin-bottom: 10px;">📉 Worst Profit Day</h4>
-                        <div><strong>Date:</strong> ${new Date(analytics.worstProfitDay.date).toLocaleDateString()}</div>
-                        <div><strong>Profit:</strong> ₱${analytics.worstProfitDay.netProfit.toLocaleString()}</div>
-                        <div><strong>Pies:</strong> ${analytics.worstProfitDay.piesSold}</div>
-                    </div>
-                </div>
-            `;
-
-            modal.style.display = 'block';
-        }
-
-        function closeAnalyticsModal() {
-            document.getElementById('analyticsModal').style.display = 'none';
-        }
-
-        // Filter Functions
-        function filterRecords() {
-            const fromDate = document.getElementById('filterFromDate').value;
-            const toDate = document.getElementById('filterToDate').value;
-            const minPies = parseInt(document.getElementById('filterMinPies').value) || 0;
-
-            let filteredRecords = [...db.dailyRecords];
-
-            if (fromDate) {
-                filteredRecords = filteredRecords.filter(r => r.date >= fromDate);
-            }
-            if (toDate) {
-                filteredRecords = filteredRecords.filter(r => r.date <= toDate);
-            }
-            if (minPies > 0) {
-                filteredRecords = filteredRecords.filter(r => r.piesSold >= minPies);
-            }
-
-            const filteredProfit = filteredRecords.reduce((sum, r) => sum + (r.netProfit || 0), 0);
-            document.getElementById('filteredCount').textContent = filteredRecords.length;
-            document.getElementById('filteredProfit').textContent = '₱' + filteredProfit.toLocaleString();
-
-            updateFilteredTable(filteredRecords);
-        }
-
-        function clearFilters() {
-            document.getElementById('filterFromDate').value = '';
-            document.getElementById('filterToDate').value = '';
-            document.getElementById('filterMinPies').value = '';
-            document.getElementById('filteredCount').textContent = db.dailyRecords.length;
-            
-            const totalProfit = db.dailyRecords.reduce((sum, r) => sum + (r.netProfit || 0), 0);
-            document.getElementById('filteredProfit').textContent = '₱' + totalProfit.toLocaleString();
-            
-            db.updateTable();
-        }
-
-        function updateFilteredTable(records) {
-            const tbody = document.getElementById('recordsTableBody');
-            
-            if (records.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #6B7280;">No records match the current filters</td></tr>';
-                return;
-            }
-
-            const sortedRecords = [...records].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            tbody.innerHTML = '';
-            sortedRecords.forEach(record => {
-                const row = document.createElement('tr');
-                const profitClass = (record.netProfit || 0) >= 0 ? 'profit-positive' : 'profit-negative';
-                const profitPerPie = record.piesSold > 0 ? (record.netProfit / record.piesSold) : 0;
-                
-                row.innerHTML = `
-                    <td>${new Date(record.date).toLocaleDateString()}</td>
-                    <td class="text-right">${record.piesSold || 0}</td>
-                    <td class="text-right">₱${(record.revenue || 0).toLocaleString()}</td>
-                    <td class="text-right">₱${(record.ingredientCost || 0).toLocaleString()}</td>
-                    <td class="text-right">₱${(record.transportationCost || 0).toLocaleString()}</td>
-                    <td class="text-right">₱${(record.otherExpenses || 0).toLocaleString()}</td>
-                    <td class="text-right ${profitClass}">₱${(record.netProfit || 0).toLocaleString()}</td>
-                    <td class="text-right ${profitClass}">₱${profitPerPie.toFixed(2)}</td>
-                    <td>
-                        <button onclick="editRecord('${record.id}')" style="background: #F59E0B; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-right: 5px;">Edit</button>
-                        <button onclick="deleteRecord('${record.id}')" style="background: #EF4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Drag and drop for file import
-        const dropZone = document.getElementById('dropZone');
-        
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.background = '#F8FAFC';
-            dropZone.style.borderColor = '#764ba2';
         });
-        
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.style.background = '#F8FAFC';
-            dropZone.style.borderColor = '#667eea';
-        });
-        
-        dropZone.addEventListener('drop', async (e) => {
-            e.preventDefault();
-            dropZone.style.background = '#F8FAFC';
-            dropZone.style.borderColor = '#667eea';
-            
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                const file = files[0];
-                if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || 
-                    file.type === 'application/vnd.ms-excel' ||
-                    file.name.endsWith('.xlsx') || 
-                    file.name.endsWith('.xls')) {
-                    try {
-                        showNotification('Processing Excel file...', 'info');
-                        const records = await db.importFromExcel(file);
-                        const success = await db.importRecords(records);
-                        if (success) {
-                            closeImportModal();
-                        }
-                    } catch (error) {
-                        console.error('Import error:', error);
-                        showNotification(`Import failed: ${error.message}`, 'error');
-                    }
-                } else {
-                    showNotification('Please drop a valid Excel file (.xlsx or .xls)', 'error');
-                }
-            }
-        });
-
-        // Modal click outside to close
-        window.onclick = function(event) {
-            const importModal = document.getElementById('importModal');
-            const analyticsModal = document.getElementById('analyticsModal');
-            
-            if (event.target === importModal) {
-                closeImportModal();
-            }
-            if (event.target === analyticsModal) {
-                closeAnalyticsModal();
-            }
-        }
     </script>
 </body>
 </html>
